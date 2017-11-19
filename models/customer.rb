@@ -1,5 +1,6 @@
 require('pg')
 require_relative('../db/sql_runner.rb')
+require_relative('ticket.rb')
 
 class Customer
 
@@ -55,6 +56,16 @@ class Customer
     values = [@id]
     result = SqlRunner.run(sql, values)
     return result.map{ |film| Film.new(film) }
+  end
+
+  def purchase_tickets(number_tickets, film)
+    return puts "Not enough money" if (number_tickets.to_f * film.price) > @funds
+    count = 0
+    while (count <= number_tickets.to_i)
+      purchase = Ticket.new( {'customer_id' => @id, 'film_id' => film.id} )
+      purchase.save
+      count += 1
+    end
   end
 
 end
