@@ -58,14 +58,28 @@ class Customer
     return result.map{ |film| Film.new(film) }
   end
 
-  def purchase_tickets(number_tickets, film)
-    return puts "Not enough money" if (number_tickets.to_f * film.price) > @funds
-    count = 0
+  def buy_ticket(number_tickets, screening)
+    return if screening.seat_validation(number_tickets) == false
+    screening.update
+    film = screening.find_film
+    count = 1
     while (count <= number_tickets.to_i)
-      purchase = Ticket.new( {'customer_id' => @id, 'film_id' => film.id} )
+      purchase = Ticket.new( {'customer_id' => @id, 'film_id' => film.id, 'screening_id' => screening.id} )
       purchase.save
       count += 1
     end
+    @funds -= (number_tickets.to_f * film.price)
+  end
+
+  def ticket_check
+    sql = "SELECT COUNT(*), c.name FROM tickets t
+    INNER JOIN customers c
+    ON c.id = t.customer_id
+    WHERE customer_id = $1
+    GROUP BY c.name"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    return result.values
   end
 
 end

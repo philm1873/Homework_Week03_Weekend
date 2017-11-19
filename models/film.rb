@@ -8,7 +8,7 @@ class Film
   def initialize(input)
     @id = input['id'].to_i if input['id']
     @title = input['title']
-    @price = input['price']
+    @price = input['price'].to_f
   end
 
   def save
@@ -48,6 +48,17 @@ class Film
     values = [@id]
     result = SqlRunner.run(sql, values)
     return result.map{ |customer| Customer.new(customer) }
+  end
+
+  def film_check
+    sql = "SELECT COUNT(*), f.title FROM tickets t
+    INNER JOIN films f
+    ON f.id = t.film_id
+    WHERE film_id = $1
+    GROUP BY f.title"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    return result.values
   end
 
 
