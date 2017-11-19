@@ -38,5 +38,17 @@ class Film
     SqlRunner.run(sql)
   end
 
+  def find_film_customers
+    sql = "SELECT c.name FROM films f
+    INNER JOIN tickets t
+    ON f.id = t.film_id
+    INNER JOIN customers c
+    ON t.customer_id = c.id
+    WHERE f.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    return result.map{ |customer| Customer.new(customer) }
+  end
+
 
 end

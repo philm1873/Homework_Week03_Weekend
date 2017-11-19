@@ -32,6 +32,8 @@ ticket2 = Ticket.new( {'film_id' => film2.id, 'customer_id' => customer2.id} )
 ticket2.save
 ticket3 = Ticket.new( {'film_id' => film3.id, 'customer_id' => customer3.id} )
 ticket3.save
+ticket4 = Ticket.new( {'film_id' => film3.id, 'customer_id' => customer4.id} )
+ticket4.save
 
 # screening1 = Screening.new({'film_id' => film1.id, 'start_time' => '2017-01-08 04:00:00', 'empty_seats' => 20})
 # screening1.save
