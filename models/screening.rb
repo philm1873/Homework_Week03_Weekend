@@ -49,7 +49,7 @@ class Screening
     GROUP BY f.title, s.start_time
     ORDER BY COUNT(*) DESC"
     result = SqlRunner.run(sql)
-    return result.values[0]
+    return result
   end
 
 end

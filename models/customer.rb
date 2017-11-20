@@ -69,6 +69,7 @@ class Customer
       count += 1
     end
     @funds -= (number_tickets.to_f * film.price)
+    self.update
   end
 
   def ticket_check

@@ -49,21 +49,14 @@ screening5 = Screening.new({'film_id' => film4.id, 'start_time' => '2017-01-12 0
 screening5.save
 
 customer1.buy_ticket(1, screening2)
-customer1.update
 customer2.buy_ticket(1, screening2)
-customer2.update
 customer3.buy_ticket(1, screening2)
-customer3.update
 customer4.buy_ticket(1, screening2)
-customer4.update
 customer1.buy_ticket(1, screening3)
-customer1.update
 customer1.buy_ticket(1, screening4)
-customer1.update
 customer2.buy_ticket(1, screening4)
-customer2.update
 customer3.buy_ticket(1, screening5)
-customer3.update
+
 
 
 # Screening.most_popular should return screening2
